@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/marker_view_round_background"
+    android:orientation="vertical"
+    android:padding="@dimen/margin_between_elements_default">
+
+    <TextView
+        android:id="@+id/txtDateValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="@dimen/margin_between_elements_default"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/colorGray"
+        android:textSize="@dimen/material_design_caption_txt_size"
+        tools:text="23rd May" />
+
+    <TextView
+        android:id="@+id/txtRateValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/material_design_caption_txt_size"
+        tools:text="1.23432" />
+
+</LinearLayout>

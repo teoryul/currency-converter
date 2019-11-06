@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBlack"
+        android:padding="@dimen/activity_horizontal_margin">
+
+        <TextView
+            android:id="@+id/txtPredictionDate"
+            android:layout_width="@dimen/no_dimens"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/material_design_title_txt_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/txtPredictionRate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="28.05.2019" />
+
+        <TextView
+            android:id="@+id/txtPredictionRate"
+            android:layout_width="@dimen/no_dimens"
+            android:layout_height="@dimen/no_dimens"
+            android:gravity="end"
+            android:textColor="@color/colorGray"
+            android:textSize="@dimen/material_design_title_txt_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/txtPredictionDate"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1.136887" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

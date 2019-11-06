@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">Currency Converter</string>
+
+    <string name="btn_ok">Ok</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="empty" translatable="false" />
+
+    <string name="title_exchange_rate_history_fragment">Exchange rate history</string>
+    <string name="title_exchange_rate_prediction_fragment">Exchange rate prediction</string>
+    <string name="title_saved_configurations_fragment">Saved Configurations</string>
+    <string name="title_search_currencies_fragment">Choose a currency</string>
+    <string name="title_settings_fragment">Settings</string>
+
+    <string name="menu_item_title_search_currencies">Search currencies…</string>
+
+    <string name="btn_zero" translatable="false">0</string>
+    <string name="btn_one" translatable="false">1</string>
+    <string name="btn_two" translatable="false">2</string>
+    <string name="btn_three" translatable="false">3</string>
+    <string name="btn_four" translatable="false">4</string>
+    <string name="btn_five" translatable="false">5</string>
+    <string name="btn_six" translatable="false">6</string>
+    <string name="btn_seven" translatable="false">7</string>
+    <string name="btn_eight" translatable="false">8</string>
+    <string name="btn_nine" translatable="false">9</string>
+    <string name="btn_decimal_point" translatable="false">.</string>
+    <string name="title_from_currency">From</string>
+    <string name="title_to_currency">To</string>
+
+    <string name="switch_preference_save_input_amount_key" translatable="false">save_input_amount</string>
+    <string name="switch_preference_save_input_amount_title">Save input amount</string>
+    <string name="switch_preference_save_input_amount_summary">Save last entered number</string>
+    <string name="list_preference_default_currency_key" translatable="false">default_currency</string>
+    <string name="list_preference_default_currency_title">Default Currency</string>
+    <string name="list_preference_default_currency_summary">Currencies will default convert to %s</string>
+    <string name="default_currency_code" translatable="false">EUR</string>
+
+    <string name="title_dialog_error">Something went wrong</string>
+    <string name="message_dialog_no_internet_access">Please check your internet connection</string>
+    <string name="message_dialog_db_query_error">Couldn\'t retrieve currencies from Database. Please restart the application.</string>
+    <string name="message_dialog_api_request_error">Couldn\'t retrieve currencies from API. Please restart the application.</string>
+    <string name="message_dialog_conversion_error">Couldn\'t perform conversion.</string>
+
+    <string name="loading_view_text_no_currencies_from_db">Couldn\'t retrieve currencies from Database.</string>
+    <string name="loading_view_text_no_saved_pair_configurations">No saved currency pair configurations.</string>
+    <string name="loading_view_text_no_currencies_found">No currencies were found.</string>
+
+</resources>

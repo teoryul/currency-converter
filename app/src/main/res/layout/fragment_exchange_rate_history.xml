@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.teoryul.currencyconverter.ui.fragment.exchangeratehistory.ExchangeRateHistoryVM" />
+
+    </data>
+
+    <com.teoryul.currencyconverter.view.loading.LoadingView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBlack"
+        app:loadingViewProgressBarVisibility="@{safeUnbox(viewModel.loadingViewProgressBarVisibility)}"
+        app:loadingViewText="@{viewModel.loadingViewText}"
+        app:loadingViewTextVisibility="@{safeUnbox(viewModel.loadingViewTextVisibility)}">
+
+        <android.support.constraint.Group
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="currenciesPairDisplay, lineChart"
+            app:visibility="@{safeUnbox(viewModel.loadingViewProgressBarVisibility) || safeUnbox(viewModel.loadingViewTextVisibility)}" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/vertical_guideline_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.2" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/vertical_guideline_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.8" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/horizontal_guideline_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.2" />
+
+        <include
+            android:id="@+id/currenciesPairDisplay"
+            layout="@layout/currency_pair_display"
+            android:layout_width="@dimen/no_dimens"
+            android:layout_height="@dimen/no_dimens"
+            app:fromCurrencyId="@{viewModel.fromCurrencyId}"
+            app:layout_constraintBottom_toTopOf="@id/horizontal_guideline_1"
+            app:layout_constraintEnd_toStartOf="@id/vertical_guideline_2"
+            app:layout_constraintStart_toEndOf="@id/vertical_guideline_1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:toCurrencyId="@{viewModel.toCurrencyId}" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/lineChart"
+            android:layout_width="@dimen/no_dimens"
+            android:layout_height="@dimen/no_dimens"
+            app:chartData="@{viewModel.chartData}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/horizontal_guideline_1" />
+
+    </com.teoryul.currencyconverter.view.loading.LoadingView>
+</layout>

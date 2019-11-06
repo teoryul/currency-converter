@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="@string/switch_preference_save_input_amount_key"
+        android:summary="@string/switch_preference_save_input_amount_summary"
+        android:title="@string/switch_preference_save_input_amount_title" />
+
+    <ListPreference
+        android:defaultValue="@string/default_currency_code"
+        android:entries="@array/currency_codes"
+        android:entryValues="@array/currency_codes"
+        android:key="@string/list_preference_default_currency_key"
+        android:negativeButtonText="@string/btn_cancel"
+        android:summary="@string/list_preference_default_currency_summary"
+        android:title="@string/list_preference_default_currency_title" />
+
+</PreferenceScreen>

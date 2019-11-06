@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.teoryul.currencyconverter.R" />
+
+        <variable
+            name="viewModel"
+            type="com.teoryul.currencyconverter.ui.fragment.searchcurrencies.SearchCurrenciesVM" />
+
+    </data>
+
+    <com.teoryul.currencyconverter.view.loading.LoadingView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBlack"
+        app:loadingViewProgressBarVisibility="@{safeUnbox(viewModel.loadingViewProgressBarVisibility)}"
+        app:loadingViewText="@{viewModel.loadingViewText}"
+        app:loadingViewTextVisibility="@{safeUnbox(viewModel.loadingViewTextVisibility)}">
+
+        <android.support.constraint.Group
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="recyclerViewSearchCurrencies"
+            app:visibility="@{safeUnbox(viewModel.loadingViewProgressBarVisibility) || safeUnbox(viewModel.loadingViewTextVisibility)}" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewSearchCurrencies"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:itemLayoutId="@{R.layout.item_currency_search_result}"
+            app:items="@{viewModel.recViewItems}"
+            app:viewModel="@{viewModel}"
+            tools:listitem="@android:layout/simple_list_item_1" />
+
+    </com.teoryul.currencyconverter.view.loading.LoadingView>
+</layout>

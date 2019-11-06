@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.teoryul.currencyconverter.ui.fragment.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_searchCurrenciesFragment"
+            app:destination="@id/searchCurrenciesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_exchangeRateHistoryFragment"
+            app:destination="@id/exchangeRateHistoryFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_savedConfigurationsFragment"
+            app:destination="@id/savedConfigurationsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_exchangeRatePredictionFragment"
+            app:destination="@id/exchangeRatePredictionFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/savedConfigurationsFragment"
+        android:name="com.teoryul.currencyconverter.ui.fragment.savedconfigurations.SavedConfigurationsFragment"
+        android:label="SavedConfigurationsFragment"
+        tools:layout="@layout/fragment_saved_configurations" />
+
+    <fragment
+        android:id="@+id/exchangeRateHistoryFragment"
+        android:name="com.teoryul.currencyconverter.ui.fragment.exchangeratehistory.ExchangeRateHistoryFragment"
+        android:label="ExchangeRateHistoryFragment"
+        tools:layout="@layout/fragment_exchange_rate_history" />
+
+    <fragment
+        android:id="@+id/exchangeRatePredictionFragment"
+        android:name="com.teoryul.currencyconverter.ui.fragment.exchangerateprediction.ExchangeRatePredictionFragment"
+        android:label="ExchangeRatePredictionFragment"
+        tools:layout="@layout/fragment_exchange_rate_prediction" />
+
+    <fragment
+        android:id="@+id/searchCurrenciesFragment"
+        android:name="com.teoryul.currencyconverter.ui.fragment.searchcurrencies.SearchCurrenciesFragment"
+        android:label="SearchCurrenciesFragment"
+        tools:layout="@layout/fragment_search_currencies" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.teoryul.currencyconverter.ui.fragment.settings.SettingsFragment"
+        android:label="SettingsFragment" />
+
+</navigation>

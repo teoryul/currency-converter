@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.teoryul.currencyconverter.R" />
+
+        <import type="com.teoryul.currencyconverter.data.CurrencyType" />
+
+        <variable
+            name="viewModel"
+            type="com.teoryul.currencyconverter.ui.fragment.home.HomeVM" />
+
+    </data>
+
+    <com.teoryul.currencyconverter.view.loading.LoadingView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        app:loadingViewProgressBarVisibility="@{safeUnbox(viewModel.loadingViewProgressBarVisibility)}"
+        app:loadingViewText="@{viewModel.loadingViewText}"
+        app:loadingViewTextVisibility="@{safeUnbox(viewModel.loadingViewTextVisibility)}">
+
+        <android.support.constraint.Group
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="viewDivider, fabSwap,
+            viewConvertFromCurrencyInformation, viewConvertToCurrencyInformation,
+            btnSeven, btnEight, btnNine, btnSave,
+            btnFour, btnFive, btnSix, btnHistory,
+            btnOne, btnTwo, btnThree, btnPredictions,
+            btnDecimalPoint, btnZero, btnBackspace, btnSettings"
+            app:visibility="@{safeUnbox(viewModel.loadingViewProgressBarVisibility) || safeUnbox(viewModel.loadingViewTextVisibility)}" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/vertical_guideline_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/vertical_guideline_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/horizontal_guideline_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.2" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/horizontal_guideline_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.4" />
+
+        <View
+            android:id="@+id/viewDivider"
+            android:layout_width="@dimen/no_dimens"
+            android:layout_height="@dimen/view_horizontal_line_height"
+            android:background="@color/colorLineBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/horizontal_guideline_1" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabSwap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.swapCurrencies()}"
+            android:src="@drawable/ic_swap"
+            android:tint="@color/colorBlack"
+            app:backgroundTint="@color/colorWhite"
+            app:layout_constraintBottom_toTopOf="@id/horizontal_guideline_2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/viewConvertFromCurrencyInformation"
+            layout="@layout/currency_information_display"
+            android:layout_width="@dimen/no_dimens"
+            android:layout_height="@dimen/no_dimens"
+            app:currencyAmount="@{viewModel.fromCurrencyAmount}"
+            app:currencyId="@{viewModel.fromCurrencyId}"
+            app:currencySymbol="@{viewModel.fromCurrencySymbol}"
+            app:currencyTitle="@{viewModel.fromCurrencyTitle}"
+            app:currencyType="@{CurrencyType.FROM_CURRENCY}"
+            app:layout_constraintBottom_toTopOf="@id/horizontal_guideline_1"
+            app:layout_constraintEnd_toStartOf="@id/vertical_guideline_2"
+            app:layout_constraintStart_toEndOf="@id/vertical_guideline_1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:viewModel="@{viewModel}" />
+
+        <include
+            android:id="@+id/viewConvertToCurrencyInformation"
+            layout="@layout/currency_information_display"
+            android:layout_width="@dimen/no_dimens"
+            android:layout_height="@dimen/no_dimens"
+            app:currencyAmount="@{viewModel.toCurrencyAmount}"
+            app:currencyId="@{viewModel.toCurrencyId}"
+            app:currencySymbol="@{viewModel.toCurrencySymbol}"
+            app:currencyTitle="@{viewModel.toCurrencyTitle}"
+            app:currencyType="@{CurrencyType.TO_CURRENCY}"
+            app:layout_constraintBottom_toTopOf="@id/horizontal_guideline_2"
+            app:layout_constraintEnd_toStartOf="@id/vertical_guideline_2"
+            app:layout_constraintStart_toEndOf="@id/vertical_guideline_1"
+            app:layout_constraintTop_toBottomOf="@id/horizontal_guideline_1"
+            app:viewModel="@{viewModel}" />
+
+        <Button
+            android:id="@+id/btnSeven"
+            android:layout_width="@dimen/no_dimens"
+            android:layout_height="@dimen/no_dimens"
+            android:background="@color/colorBlack"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.onNumberButtonClick(7)}"
+            android:text="@string/btn_seven"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/material_design_headline_txt_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/btnFour"
+            app:layout_constraintEnd_toEndOf="@+id/btnFour"
+            app:layout_constraintStart_toStartOf="@id/btnFour"
+            app:layout_constraintTop_toBottomOf="@id/horizontal_guideline_2" />
+
+        <Button
+            android:id="@+id/btnEight"
+            android:layout_width="@dimen/no_dimens"
+            android:layout_height="@dimen/no_dimens"
+            android:background="@color/colorBlack"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.onNumberButtonClick(8)}"
+            android:text="@string/btn_eight"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/material_design_headline_txt_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/btnFive"
+            app:layout_constraintEnd_toEndOf="@+id/btnFive"
+            app:layout_constraintStart_toStartOf="@+id/btnFive"
+            app:layout_constraintTop_toBottomOf="@id/horizontal_guideline_2" />
+
+        <Button
+            android:id="@+id/btnNine"
+            android:layout_width="@dimen/no_dimens"
+            android:layout_height="@dimen/no_dimens"
+            android:background="@color/colorBlack"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.onNumberButtonClick(9)}"
+            android:text="@string/btn_nine"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/material_design_headline_txt_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/btnSix"
+            app:layout_constraintEnd_toEndOf="@id/btnSix"
+            app:layout_constraintStart_toStartOf="@+id/btnSix"
+            app:layout_constraintTop_toBottomOf="@id/horizontal_guideline_2" />
+
+        <ImageButton
+            android:id="@+id/btnSave"
+            android:layout_width="@dimen/no_dimens"
+            android:layout_height="@dimen/no_dimens"
+            android:background="@color/colorBlack"
+            android:contentDescription="@null"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.setNewDestination(R.id.action_homeFragment_to_savedConfigurationsFragment)}"
+            android:src="@drawable/ic_save"
+            app:layout_constraintBottom_toTopOf="@id/btnHistory"
+            app:layout_constraintEnd_toEndOf="@+id/btnHistory"
+            app:layout_constraintStart_toStartOf="@+id/btnHistory"
+            app:layout_constraintTop_toBottomOf="@id/horizontal_guideline_2" />
+
+        <Button
+            android:id="@+id/btnFour"
+            android:layout_width="@dimen/no_dimens"
+            android:layout_height="@dimen/no_dimens"
+            android:background="@color/colorBlack"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.onNumberButtonClick(4)}"
+            android:text="@string/btn_four"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/material_design_headline_txt_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/btnOne"
+            app:layout_constraintEnd_toEndOf="@+id/btnOne"
+            app:layout_constraintStart_toStartOf="@id/btnOne"
+            app:layout_constraintTop_toBottomOf="@id/btnSeven" />
+
+        <Button
+            android:id="@+id/btnFive"
+            android:layout_width="@dimen/no_dimens"
+            android:layout_height="@dimen/no_dimens"
+            android:background="@color/colorBlack"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.onNumberButtonClick(5)}"
+            android:text="@string/btn_five"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/material_design_headline_txt_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/btnTwo"
+            app:layout_constraintEnd_toEndOf="@+id/btnTwo"
+            app:layout_constraintStart_toStartOf="@+id/btnTwo"
+            app:layout_constraintTop_toBottomOf="@id/btnEight" />
+
+        <Button
+            android:id="@+id/btnSix"
+            android:layout_width="@dimen/no_dimens"
+            android:layout_height="@dimen/no_dimens"
+            android:background="@color/colorBlack"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.onNumberButtonClick(6)}"
+            android:text="@string/btn_six"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/material_design_headline_txt_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/btnThree"
+            app:layout_constraintEnd_toEndOf="@+id/btnThree"
+            app:layout_constraintStart_toStartOf="@id/btnThree"
+            app:layout_constraintTop_toBottomOf="@id/btnNine" />
+
+        <ImageButton
+            android:id="@+id/btnHistory"
+            android:layout_width="@dimen/no_dimens"
+            android:layout_height="@dimen/no_dimens"
+            android:background="@color/colorBlack"
+            android:contentDescription="@null"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.setNewDestination(R.id.action_homeFragment_to_exchangeRateHistoryFragment)}"
+            android:src="@drawable/ic_history"
+            app:layout_constraintBottom_toTopOf="@id/btnPredictions"
+            app:layout_constraintEnd_toEndOf="@+id/btnPredictions"
+            app:layout_constraintStart_toStartOf="@id/btnPredictions"
+            app:layout_constraintTop_toBottomOf="@id/btnSave" />
+
+        <Button
+            android:id="@+id/btnOne"
+            android:layout_width="@dimen/no_dimens"
+            android:layout_height="@dimen/no_dimens"
+            android:background="@color/colorBlack"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.onNumberButtonClick(1)}"
+            android:text="@string/btn_one"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/material_design_headline_txt_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/btnDecimalPoint"
+            app:layout_constraintEnd_toEndOf="@+id/btnDecimalPoint"
+            app:layout_constraintStart_toStartOf="@id/btnDecimalPoint"
+            app:layout_constraintTop_toBottomOf="@id/btnFour" />
+
+        <Button
+            android:id="@+id/btnTwo"
+            android:layout_width="@dimen/no_dimens"
+            android:layout_height="@dimen/no_dimens"
+            android:background="@color/colorBlack"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.onNumberButtonClick(2)}"
+            android:text="@string/btn_two"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/material_design_headline_txt_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/btnZero"
+            app:layout_constraintEnd_toEndOf="@+id/btnZero"
+            app:layout_constraintStart_toStartOf="@+id/btnZero"
+            app:layout_constraintTop_toBottomOf="@id/btnFive" />
+
+        <Button
+            android:id="@+id/btnThree"
+            android:layout_width="@dimen/no_dimens"
+            android:layout_height="@dimen/no_dimens"
+            android:background="@color/colorBlack"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.onNumberButtonClick(3)}"
+            android:text="@string/btn_three"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/material_design_headline_txt_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/btnBackspace"
+            app:layout_constraintEnd_toEndOf="@+id/btnBackspace"
+            app:layout_constraintStart_toStartOf="@id/btnBackspace"
+            app:layout_constraintTop_toBottomOf="@id/btnSix" />
+
+        <ImageButton
+            android:id="@+id/btnPredictions"
+            android:layout_width="@dimen/no_dimens"
+            android:layout_height="@dimen/no_dimens"
+            android:background="@color/colorBlack"
+            android:contentDescription="@null"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.setNewDestination(R.id.action_homeFragment_to_exchangeRatePredictionFragment)}"
+            android:src="@drawable/ic_predictions"
+            app:layout_constraintBottom_toTopOf="@id/btnSettings"
+            app:layout_constraintEnd_toEndOf="@+id/btnSettings"
+            app:layout_constraintStart_toStartOf="@id/btnSettings"
+            app:layout_constraintTop_toBottomOf="@id/btnHistory" />
+
+        <Button
+            android:id="@+id/btnDecimalPoint"
+            android:layout_width="@dimen/no_dimens"
+            android:layout_height="@dimen/no_dimens"
+            android:background="@color/colorBlack"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.onDecimalPointButtonClick()}"
+            android:text="@string/btn_decimal_point"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/material_design_headline_txt_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnZero"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnOne" />
+
+        <Button
+            android:id="@+id/btnZero"
+            android:layout_width="@dimen/no_dimens"
+            android:layout_height="@dimen/no_dimens"
+            android:background="@color/colorBlack"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.onNumberButtonClick(0)}"
+            android:text="@string/btn_zero"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/material_design_headline_txt_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnBackspace"
+            app:layout_constraintStart_toEndOf="@id/btnDecimalPoint"
+            app:layout_constraintTop_toBottomOf="@id/btnTwo" />
+
+        <ImageButton
+            android:id="@+id/btnBackspace"
+            android:layout_width="@dimen/no_dimens"
+            android:layout_height="@dimen/no_dimens"
+            android:background="@color/colorBlack"
+            android:contentDescription="@null"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.onBackspaceButtonClick()}"
+            android:onLongClick="@{(v) -> viewModel.onBackspaceButtonLongClick(v)}"
+            android:src="@drawable/ic_backspace"
+            android:tint="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnSettings"
+            app:layout_constraintStart_toEndOf="@id/btnZero"
+            app:layout_constraintTop_toBottomOf="@id/btnThree" />
+
+        <ImageButton
+            android:id="@+id/btnSettings"
+            android:layout_width="@dimen/no_dimens"
+            android:layout_height="@dimen/no_dimens"
+            android:background="@color/colorBlack"
+            android:contentDescription="@null"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.setNewDestination(R.id.action_homeFragment_to_settingsFragment)}"
+            android:src="@drawable/ic_settings"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnBackspace"
+            app:layout_constraintTop_toBottomOf="@id/btnPredictions" />
+
+    </com.teoryul.currencyconverter.view.loading.LoadingView>
+</layout>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.teoryul.currencyconverter.R" />
+
+        <import type="com.teoryul.currencyconverter.data.CurrencyType" />
+
+        <variable
+            name="viewModel"
+            type="com.teoryul.currencyconverter.ui.fragment.home.HomeVM" />
+
+        <variable
+            name="currencyTitle"
+            type="Integer" />
+
+        <variable
+            name="currencyId"
+            type="String" />
+
+        <variable
+            name="currencySymbol"
+            type="String" />
+
+        <variable
+            name="currencyAmount"
+            type="String" />
+
+        <variable
+            name="currencyType"
+            type="CurrencyType" />
+
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> viewModel.setNewDestination(R.id.action_homeFragment_to_searchCurrenciesFragment, currencyType)}">
+
+        <android.support.constraint.Guideline
+            android:id="@+id/vertical_guideline_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <ImageView
+            android:id="@+id/imgCurrencyFlag"
+            android:layout_width="@dimen/img_flag_size"
+            android:layout_height="@dimen/img_flag_size"
+            android:contentDescription="@null"
+            app:imgViewSrc="@{currencyId}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtCurrencyTitle"
+            android:layout_width="@dimen/no_dimens"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:text="@{safeUnbox(currencyTitle)}"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/material_design_headline_txt_size"
+            app:layout_constraintBottom_toTopOf="@id/txtCurrencyId"
+            app:layout_constraintStart_toEndOf="@id/imgCurrencyFlag"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="From\\To" />
+
+        <TextView
+            android:id="@+id/txtCurrencyId"
+            android:layout_width="@dimen/no_dimens"
+            android:layout_height="wrap_content"
+            android:text="@{currencyId}"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/material_design_headline_txt_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/txtCurrencyTitle"
+            app:layout_constraintTop_toBottomOf="@id/txtCurrencyTitle"
+            tools:text="EUR" />
+
+        <TextView
+            android:id="@+id/txtCurrencyAmount"
+            android:layout_width="@dimen/no_dimens"
+            android:layout_height="@dimen/no_dimens"
+            android:layout_marginEnd="@dimen/margin_between_elements_default"
+            android:layout_marginRight="@dimen/margin_between_elements_default"
+            android:gravity="end|center_vertical"
+            android:maxLines="1"
+            android:text="@{currencyAmount}"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            app:autoSizeMaxTextSize="@dimen/material_design_headline_txt_size"
+            app:autoSizeMinTextSize="@dimen/material_design_caption_txt_size"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/txtCurrencySymbol"
+            app:layout_constraintStart_toEndOf="@+id/vertical_guideline_1"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="11.123" />
+
+        <TextView
+            android:id="@+id/txtCurrencySymbol"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/no_dimens"
+            android:gravity="end|center_vertical"
+            android:text="@{currencySymbol}"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/material_design_headline_txt_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/txtCurrencyAmount"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="€" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
