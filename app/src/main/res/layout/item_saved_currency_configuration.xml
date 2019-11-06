@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.9" />
+            app:layout_constraintGuide_percent="0.95" />
 
         <ImageView
             android:layout_width="@dimen/img_arrow_forward_size"
@@ -100,21 +100,6 @@
             app:layout_constraintEnd_toStartOf="@id/vertical_guideline_2"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="BGN" />
-
-        <ImageButton
-            android:id="@+id/btnClear"
-            android:layout_width="@dimen/no_dimens"
-            android:layout_height="@dimen/no_dimens"
-            android:background="@color/colorBlack"
-            android:contentDescription="@null"
-            android:gravity="center"
-            android:onClick="@{() -> viewModel.onButtonDeleteClick(item)}"
-            android:src="@drawable/ic_clear"
-            android:tint="@color/colorAccent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/txtToCurrencyTitle"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

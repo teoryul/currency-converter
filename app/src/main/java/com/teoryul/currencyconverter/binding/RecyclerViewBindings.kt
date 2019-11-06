@@ -4,10 +4,12 @@ import android.databinding.BindingAdapter
 import android.databinding.ObservableArrayList
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.helper.ItemTouchHelper
 import android.widget.LinearLayout
 import com.teoryul.currencyconverter.adapter.BaseRecyclerAdapter
 import com.teoryul.currencyconverter.adapter.SavedConfigurationsRecyclerAdapter
 import com.teoryul.currencyconverter.adapter.SearchCurrenciesRecyclerAdapter
+import com.teoryul.currencyconverter.adapter.helper.SwipeToDeleteSavedConfigurations
 import com.teoryul.currencyconverter.ui.fragment.BaseVM
 import com.teoryul.currencyconverter.ui.fragment.savedconfigurations.SavedConfigurationsVM
 import com.teoryul.currencyconverter.ui.fragment.searchcurrencies.SearchCurrenciesVM
@@ -26,6 +28,7 @@ fun <T> bindRecyclerView(recView: RecyclerView, viewModel: BaseVM, items: Observ
         }
         if (viewModel is SavedConfigurationsVM) {
             recView.adapter = SavedConfigurationsRecyclerAdapter(viewModel, items, itemLayoutId)
+            ItemTouchHelper(SwipeToDeleteSavedConfigurations(viewModel)).attachToRecyclerView(recView)
 
             return
         }

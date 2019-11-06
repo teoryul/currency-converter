@@ -10,17 +10,16 @@ import android.view.ViewGroup
 import com.teoryul.currencyconverter.BR
 import com.teoryul.currencyconverter.ui.fragment.BaseVM
 
-abstract class BaseRecyclerAdapter<T>(
-    protected val viewModel: BaseVM,
-    private var items: ObservableList<T>
-) : RecyclerView.Adapter<BaseRecyclerAdapter<T>.BaseRecyclerViewHolder<T, ViewDataBinding>>() {
+abstract class BaseRecyclerAdapter<T>(protected val viewModel: BaseVM, private var items: ObservableList<T>) :
+    RecyclerView.Adapter<BaseRecyclerAdapter<T>.BaseRecyclerViewHolder<T, ViewDataBinding>>() {
+
+    private var onListChangedCallback: ObservableList.OnListChangedCallback<ObservableList<T>>? = null
+
+    init {
+        setOnListChangedCallback()
+    }
 
     abstract fun getLayoutId(): Int
-
-    fun setItems(items: ObservableList<T>) {
-        this.items = items
-        notifyDataSetChanged()
-    }
 
     override fun getItemCount(): Int = if (items.isEmpty()) 0 else items.size
 
@@ -33,6 +32,36 @@ abstract class BaseRecyclerAdapter<T>(
     override fun onBindViewHolder(holder: BaseRecyclerViewHolder<T, ViewDataBinding>, position: Int) {
         holder.bind(items[position] as T)
         holder.binder?.executePendingBindings()
+    }
+
+    fun setItems(items: ObservableList<T>) {
+        this.items = items
+    }
+
+    private fun setOnListChangedCallback() {
+        if (onListChangedCallback == null) {
+            onListChangedCallback = object : ObservableList.OnListChangedCallback<ObservableList<T>>() {
+
+                override fun onChanged(sender: ObservableList<T>?) = notifyDataSetChanged()
+
+                override fun onItemRangeRemoved(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) =
+                    notifyItemRangeRemoved(positionStart, itemCount)
+
+                override fun onItemRangeMoved(
+                    sender: ObservableList<T>?,
+                    fromPosition: Int,
+                    toPosition: Int,
+                    itemCount: Int
+                ) = notifyDataSetChanged()
+
+                override fun onItemRangeInserted(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) =
+                    notifyItemRangeInserted(positionStart, itemCount)
+
+                override fun onItemRangeChanged(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) =
+                    notifyItemRangeChanged(positionStart, itemCount)
+            }
+            items.addOnListChangedCallback(onListChangedCallback)
+        }
     }
 
     abstract inner class BaseRecyclerViewHolder<T, B : ViewDataBinding>(view: View) :

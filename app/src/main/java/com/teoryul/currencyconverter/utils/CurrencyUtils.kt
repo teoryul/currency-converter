@@ -16,16 +16,16 @@ object CurrencyUtils {
     fun buildCurrencyPair(currencyCode1: String, currencyCode2: String? = ""): String =
         if (TextUtils.isEmpty(currencyCode2)) {
             currencyCode1
-                .plus(CURRENCY_PAIR_DELIMITER)
+                .plus(CURRENCY_PAIR_UNDERSCORE_DELIMITER)
                 .plus(currencyCode1)
         } else {
             currencyCode1
-                .plus(CURRENCY_PAIR_DELIMITER)
+                .plus(CURRENCY_PAIR_UNDERSCORE_DELIMITER)
                 .plus(currencyCode2)
         }
 
     fun swapCurrencyPairIds(pair: String): String =
-        pair.takeLast(CURRENCY_CODE_LENGTH).plus(CURRENCY_PAIR_DELIMITER).plus(pair.take(CURRENCY_CODE_LENGTH))
+        pair.takeLast(CURRENCY_CODE_LENGTH).plus(CURRENCY_PAIR_UNDERSCORE_DELIMITER).plus(pair.take(CURRENCY_CODE_LENGTH))
 
     fun buildCurrencyPairsQueryParam(vararg pairs: String): String =
         pairs.joinToString(CURRENCY_PAIR_QUERY_PARAM_SEPARATOR)
@@ -42,8 +42,8 @@ object CurrencyUtils {
 
     fun replaceCurrency(pair: String, newCurrencyId: String, which: CurrencyType): String =
         if (which == CurrencyType.FROM_CURRENCY) {
-            pair.replaceBefore(CURRENCY_PAIR_DELIMITER, newCurrencyId)
+            pair.replaceBefore(CURRENCY_PAIR_UNDERSCORE_DELIMITER, newCurrencyId)
         } else {
-            pair.replaceAfter(CURRENCY_PAIR_DELIMITER, newCurrencyId)
+            pair.replaceAfter(CURRENCY_PAIR_UNDERSCORE_DELIMITER, newCurrencyId)
         }
 }

@@ -1,6 +1,7 @@
 package com.teoryul.currencyconverter.ui.fragment.savedconfigurations
 
 import android.arch.lifecycle.Lifecycle
+import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.OnLifecycleEvent
 import android.databinding.ObservableArrayList
 import android.util.Log
@@ -10,15 +11,17 @@ import com.teoryul.currencyconverter.event.Event
 import com.teoryul.currencyconverter.event.NavigationAction
 import com.teoryul.currencyconverter.persistence.model.CurrencyPairPersist
 import com.teoryul.currencyconverter.ui.fragment.BaseVM
-import com.teoryul.currencyconverter.utils.CURRENCY_CODE_LENGTH
-import com.teoryul.currencyconverter.utils.CurrencyUtils
-import com.teoryul.currencyconverter.utils.LOG_ERROR_TAG_FAILED_QUERY
+import com.teoryul.currencyconverter.utils.*
 import io.reactivex.functions.Consumer
+import java.util.*
 import javax.inject.Inject
 
 class SavedConfigurationsVM @Inject constructor() : BaseVM() {
 
     var recViewItems = ObservableArrayList<CurrencyPairConfiguration>()
+    val recViewItemDeleteEvent = MutableLiveData<Event<String>>()
+    private lateinit var deletedRecViewItem: CurrencyPairConfiguration
+    private var deletedRecViewItemPosition: Int = -1
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     private fun onResume() {
@@ -76,42 +79,53 @@ class SavedConfigurationsVM @Inject constructor() : BaseVM() {
                 currencyPairDataService.pair.take(CURRENCY_CODE_LENGTH),
                 currencyPairDataService.pair.takeLast(CURRENCY_CODE_LENGTH)
             )
-
             persistPairConfig(newPairConfig, true)
-
-            if (!recViewItems.isEmpty()) {
-                for (pairConfig in recViewItems) {
-                    if (pairConfig.getAsPair() == currencyPairDataService.pair
-                    ) {
-
-                        return
-                    }
-                }
-
-                val tmpList = mutableListOf<CurrencyPairConfiguration>()
-                tmpList.addAll(recViewItems)
-                tmpList.add(newPairConfig)
-                tmpList.sort()
-                recViewItems.clear()
-                recViewItems.addAll(tmpList)
-            } else {
-                recViewItems.add(newPairConfig)
-                setLoadingViewTextVisibility(false)
-            }
+            addPairConfig(newPairConfig)
         }
     }
 
-    fun onButtonDeleteClick(item: CurrencyPairConfiguration) {
-        for (pairConfig in recViewItems) {
-            if (pairConfig == item) {
-                recViewItems.remove(pairConfig)
-                persistPairConfig(item, false)
-                break
-            }
-        }
+    fun onSwipeDelete(itemPosition: Int) {
+        deletedRecViewItemPosition = itemPosition
+        deletedRecViewItem = recViewItems.removeAt(itemPosition)
+        persistPairConfig(deletedRecViewItem, false)
+
         if (recViewItems.isEmpty()) {
             setLoadingViewText(R.string.loading_view_text_no_saved_pair_configurations)
             setLoadingViewTextVisibility(true)
+        }
+
+        recViewItemDeleteEvent.value = Event(
+            deletedRecViewItem.getAsPair().replace(
+                CURRENCY_PAIR_UNDERSCORE_DELIMITER,
+                CURRENCY_PAIR_DASH_DELIMITER
+            )
+        )
+    }
+
+    fun onUndoSwipeDelete() {
+        addPairConfig(deletedRecViewItem, deletedRecViewItemPosition)
+        persistPairConfig(deletedRecViewItem, true)
+    }
+
+    private fun addPairConfig(newPairConfig: CurrencyPairConfiguration, index: Int? = null) {
+        if (!recViewItems.isEmpty()) {
+            for (pairConfig in recViewItems) {
+                if (pairConfig.getAsPair() == currencyPairDataService.pair) {
+
+                    return
+                }
+            }
+            if (index != null) {
+                recViewItems.add(index, newPairConfig)
+            } else {
+                val linkedList = LinkedList(recViewItems)
+                linkedList.push(newPairConfig)
+                recViewItems.clear()
+                recViewItems.addAll(linkedList)
+            }
+        } else {
+            recViewItems.add(newPairConfig)
+            setLoadingViewTextVisibility(false)
         }
     }
 
